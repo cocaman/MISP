@@ -14,7 +14,7 @@ class TagsController extends AppController {
 	public $paginate = array(
 			'limit' => 50,
 			'order' => array(
-					'Tag.id' => 'desc'
+					'Tag.name' => 'asc'
 			)
 	);
 	
@@ -37,7 +37,15 @@ class TagsController extends AppController {
 					$eventIDs[] = $eventTag['event_id'];
 				}
 				$conditions = array('Event.id' => $eventIDs);
-				if (!$this->_isSiteAdmin()) $conditions = array_merge($conditions, array('OR' => array(array('Event.distribution >' => 0),  array('Event.orgc' => $this->Auth->user('org')))));
+				if (!$this->_isSiteAdmin()) $conditions = array_merge(
+					$conditions,
+					array('OR' => array(
+						array('AND' => array(
+							array('Event.distribution >' => 0),
+							array('Event.published =' => 1)
+						)),
+						array('Event.orgc' => $this->Auth->user('org'))
+					)));
 				$events = $this->Event->find('all', array(
 					'fields' => array('Event.id', 'Event.distribution', 'Event.orgc'),
 					'conditions' => $conditions
@@ -112,7 +120,7 @@ class TagsController extends AppController {
 				'fields' => array('Tag.id', 'Tag.colour', 'Tag.name'),
 		));
 		$this->set('tags', $tags);
-		$tags = $this->Tag->find('all', array('recursive' => -1));
+		$tags = $this->Tag->find('all', array('recursive' => -1, 'order' => array('Tag.name ASC')));
 		$tagNames = array('None');
 		foreach ($tags as $k => $v) {
 			$tagNames[$v['Tag']['id']] = $v['Tag']['name'];

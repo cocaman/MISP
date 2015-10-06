@@ -1,5 +1,5 @@
 <?php
-	echo $this->Form->create('ShadowAttribute', array('class' => 'inline-form inline-field-form', 'id' => 'ShadowAttribute_' . $object['id'] . '_value_form', 'action' => 'editField', 'default' => false));
+	echo $this->Form->create('ShadowAttribute', array('class' => 'inline-form inline-field-form', 'id' => 'ShadowAttribute_' . $object['id'] . '_value_form', 'url' => '/shadow_attributes/editField/' . $object['id'], 'default' => false));
 ?>
 	<div class='inline-input inline-input-container'>	
 	<div class="inline-input-accept inline-input-button inline-input-passive"><span class = "icon-ok"></span></div>	
@@ -8,7 +8,7 @@
 	echo $this->Form->input('value', array(
 			'type' => 'textarea',
 			'label' => false,
-			'value' => h($object['value']),
+			'value' => $object['value'],
 			'error' => array('escape' => false),
 			'class' => 'inline-input',
 			'id' => 'ShadowAttribute_' . $object['id'] . '_value_field',

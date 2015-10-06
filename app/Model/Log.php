@@ -22,7 +22,13 @@ class Log extends AppModel {
 							'discard',
 							'pull',
 							'push',
-							'blacklisted'
+							'blacklisted',
+							'admin_email',
+							'email',
+							'serverSettingsEdit',
+							'remove_dead_workers',
+							'upload_sample',
+							'update_database'
 						)),
 			'message' => 'Options : ...'
 		)

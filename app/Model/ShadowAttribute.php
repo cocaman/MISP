@@ -510,7 +510,7 @@ class ShadowAttribute extends AppModel {
 			// TODO check if CakePHP has no easy/safe wrapper to execute commands
 			$execRetval = '';
 			$execOutput = array();
-			exec("zip -j -P infected " . $zipfile->path . ' "' . addslashes($fileInZip->path) . '"', $execOutput, $execRetval);
+			exec("zip -j -P infected " . $zipfile->path . ' \'' . addslashes($fileInZip->path) . '\'', $execOutput, $execRetval);
 			if ($execRetval != 0) { // not EXIT_SUCCESS
 				// do some?
 			};
@@ -536,10 +536,12 @@ class ShadowAttribute extends AppModel {
 	}
 	
 	public function setDeleted($id) {
+		$this->Behaviors->detach('SysLogLogable.SysLogLogable');
 		$this->id = $id;
 		$this->saveField('deleted', 1);
 		$date = new DateTime();
 		$this->saveField('timestamp', $date->getTimestamp());
+		return true;
 	}
 	
 	public function findOldProposal($sa) {

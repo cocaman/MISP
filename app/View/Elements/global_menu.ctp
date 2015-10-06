@@ -70,7 +70,6 @@
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="/users/news">News</a></li>
 							<li><a href="/users/view/me">My Profile</a></li>
 							<li><a href="/users/memberslist">Members List</a></li>
 							<li><a href="/roles/index">Role Permissions</a></li>
@@ -103,14 +102,13 @@
 						<ul class="dropdown-menu">
 							<li><a href="/admin/users/add">New User</a></li>
 							<li><a href="/admin/users/index">List Users</a></li>
+							<li><a href="/admin/users/email">Contact Users</a></li>
 							<li class="divider"></li>
 							<?php if($isSiteAdmin): ?>
 							<li><a href="/admin/roles/add">New Role</a></li>
 							<?php endif; ?>
 							<li><a href="/admin/roles/index">List Roles</a></li>
 							<?php if($isSiteAdmin): ?>
-								<li class="divider"></li>
-								<li><a href="/admin/users/email">Contact Users</a></li>
 								<li class="divider"></li>
 								<li><a href="/pages/display/administration">Administrative tools</a></li>
 								<li><a href="/servers/serverSettings">Server settings</a></li>
@@ -119,7 +117,12 @@
 									<li><a href="/jobs/index">Jobs</a></li>
 									<li class="divider"></li>
 									<li><a href="/tasks">Scheduled Tasks</a></li>
-								<?php endif; ?>						
+								<?php endif; ?>
+								<?php if (Configure::read('MISP.enableEventBlacklisting') && $isSiteAdmin): ?>	
+									<li class="divider"></li>
+									<li><a href="/eventBlacklists/add">Blacklist Event</a></li>
+									<li><a href="/eventBlacklists">Manage Event Blacklists</a></li>
+								<?php endif; ?>			
 							<?php endif; ?>
 						</ul>
 					</li>
@@ -164,13 +167,13 @@
 					</li>
 					<li>
 						<a href="/" id="fullLogo" style="font-weight:bold;">
-							<span class="logoBlue">M</span><span class="logoGray">alware</span>
-							<span class="logoBlue">I</span><span class="logoGray">nformation </span>
-							<span class="logoBlue">S</span><span class="logoGray">haring</span>
-							<span class="logoBlue">P</span><span class="logoGray">latform</span>
+							<span class="logoBlueStatic">M</span><span class="logoGray">alware</span>
+							<span class="logoBlueStatic">I</span><span class="logoGray">nformation </span>
+							<span class="logoBlueStatic">S</span><span class="logoGray">haring</span>
+							<span class="logoBlueStatic">P</span><span class="logoGray">latform</span>
 						</a>
 						<a href="/" id="smallLogo" style="display:none;font-weight:bold;">
-							<span class="logoBlue">MISP</span>
+							<span class="logoBlueStatic">MISP</span>
 						</a>
 					</li>
 					<li><a href="/users/logout">Log out</a></li>
